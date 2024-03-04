@@ -11,6 +11,8 @@
   "dependencies": {
     "@apollo/client": "^3.9.5",
     "@apollo/experimental-nextjs-app-support": "^0.8.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "graphql": "^16.8.1",
