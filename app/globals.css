@@ -99,23 +99,23 @@
   text-align: justify;
   position: relative;
   animation: sw-intro 120s linear forwards;
-  transform: translateY(100px);
+  /* transform: translateY(100px); */
 }
 
 @keyframes sw-intro {
   from {
     top: 0;
-    transform: translateZ(0) rotateX(25deg);
+    transform: translateZ(0) rotateX(22deg);
   }
   to {
     top: -7500px;
-    transform: translateZ(-2500px) rotateX(27deg);
+    transform: translateZ(-2500px) rotateX(23.5deg);
   }
 }
 
 .appear-txt {
-  animation: sw-appear 4s linear forwards;
-  transform: translateY(-200px);
+  animation: sw-appear 5s linear forwards;
+  /* transform: translateY(-200px); */
 }
 
 @keyframes sw-appear {
