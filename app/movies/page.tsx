@@ -28,6 +28,7 @@ export type FilmType = {
 };
 
 const Movies = () => {
+  // NOTE:attempt to make it workd server side, kept here for reference
   // const client = getClient();
   // const { data } = await client.query({
   //   query: GET_ALL_FILMS,
