@@ -10,11 +10,54 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { gql, useQuery } from "@apollo/client";
+
+type PeopleType = {
+  name: string;
+  gender: string;
+};
+
+const GET_ALL_FILMS = gql`
+  query GetAllPeople {
+    allPeople {
+      people {
+        name
+        gender
+      }
+    }
+  }
+`;
 
 export default function Home() {
+  const { loading, error, data } = useQuery(GET_ALL_FILMS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
+  const people: PeopleType[] = data?.allPeople?.people;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { email, password } = e.target as typeof e.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+
+    if (!email.value || !password.value) {
+      console.log(email.value, password.value);
+    }
+
+    const user = people.find((person) => person.name === email.value);
+
+    if (!user) return;
+    if (user.gender !== password.value) return;
+
+    console.log("Login successful");
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Login</CardTitle>
@@ -25,13 +68,8 @@ export default function Home() {
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  placeholder="test@example.com"
-                  required
-                  type="email"
-                />
+                <Label htmlFor="username">Username</Label>
+                <Input id="username" placeholder="Józsi" required type="text" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
