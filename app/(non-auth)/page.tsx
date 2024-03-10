@@ -25,8 +25,9 @@ export default function Home() {
       console.error("Missing input", username.value, password.value);
     }
 
+    let res;
     try {
-      const response = await fetch("/api/login", {
+      res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify({
           username: username.value,
@@ -38,6 +39,10 @@ export default function Home() {
       });
     } catch (err) {
       console.error(err);
+    }
+
+    if (!res?.ok) {
+      return;
     }
 
     console.log("Login successful");
