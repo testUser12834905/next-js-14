@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { gql, useQuery } from "@apollo/client";
+import { UserType } from "./api/login/route";
 
 type PeopleType = {
   name: string;
@@ -36,21 +37,30 @@ export default function Home() {
 
   const people: PeopleType[] = data?.allPeople?.people;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { email, password } = e.target as typeof e.target & {
-      email: { value: string };
-      password: { value: string };
-    };
 
-    if (!email.value || !password.value) {
-      console.log(email.value, password.value);
+    //@ts-ignore
+    const { username, password } = e.target.elements;
+
+    if (!username.value || !password.value) {
+      console.error("Missing input", username.value, password.value);
     }
 
-    const user = people.find((person) => person.name === email.value);
-
-    if (!user) return;
-    if (user.gender !== password.value) return;
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+          username: username.value,
+          password: password.value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
 
     console.log("Login successful");
   };
