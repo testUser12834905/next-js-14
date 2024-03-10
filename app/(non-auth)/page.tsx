@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { gql, useQuery } from "@apollo/client";
-import { UserType } from "./api/login/route";
+import { UserType } from "../api/login/route";
 
 type PeopleType = {
   name: string;
