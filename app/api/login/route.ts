@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export type UserType = {
@@ -18,9 +19,13 @@ export async function POST(req: NextRequest) {
     (user) =>
       user.username === body.username && user.password === body.password,
   );
+
   if (!user) {
     return new Response("Not Found", { status: 404 });
   }
+
+  const cookieStore = cookies();
+  cookieStore.set("isLoggedIn", "true", { maxAge: 5 * 60 });
 
   return new Response("OK", { status: 200 });
 }
