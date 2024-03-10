@@ -11,32 +11,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { gql, useQuery } from "@apollo/client";
-import { UserType } from "../api/login/route";
-
-type PeopleType = {
-  name: string;
-  gender: string;
-};
-
-const GET_ALL_FILMS = gql`
-  query GetAllPeople {
-    allPeople {
-      people {
-        name
-        gender
-      }
-    }
-  }
-`;
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_ALL_FILMS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
-  const people: PeopleType[] = data?.allPeople?.people;
-
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -63,6 +41,7 @@ export default function Home() {
     }
 
     console.log("Login successful");
+    router.push("/movies");
   };
 
   return (
