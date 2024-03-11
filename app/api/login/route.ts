@@ -29,3 +29,7 @@ export async function POST(req: NextRequest) {
 
   return new Response("OK", { status: 200 });
 }
+
+export async function GET(req: NextRequest) {
+  return NextResponse.json({ something: "else" });
+}
